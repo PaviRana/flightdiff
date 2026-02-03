@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flying Hours Difference (hrs:min)</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eef2f7; /* default light */
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 520px;
+      padding: 24px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      text-align: center;
+      transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+      text-align: left;
+      background: #fafafa;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    legend {
+      font-weight: 600;
+      color: #444;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 4px rgba(0,123,255,0.4);
+      outline: none;
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #swapBtn {
+      background: #28a745;
+    }
+    #swapBtn:hover {
+      background: #1e7e34;
+    }
+
+    #resetBtn {
+      background: #dc3545;
+    }
+    #resetBtn:hover {
+      background: #a71d2a;
+    }
+
+    #themeToggle {
+      background: #6c757d;
+    }
+    #themeToggle:hover {
+      background: #495057;
+    }
+
+    .out {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f1f3f5;
+      font-weight: 500;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .error {
+      color: #b00020;
+      font-weight: bold;
+    }
+
+    /* 🌙 Dark Mode (when .dark-mode class is on body) */
+    body.dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+    body.dark-mode .container {
+      background: #1e1e1e;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+      color: #f1f1f1;
+    }
+    body.dark-mode h1 {
+      color: #f1f1f1;
+    }
+    body.dark-mode fieldset {
+      border: 1px solid #333;
+      background: #2a2a2a;
+    }
+    body.dark-mode legend {
+      color: #ccc;
+    }
+    body.dark-mode label {
+      color: #ddd;
+    }
+    body.dark-mode input[type="number"] {
+      background: #2a2a2a;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    body.dark-mode input[type="number"]:focus {
+      border-color: #66aaff;
+      box-shadow: 0 0 4px rgba(102,170,255,0.6);
+    }
+    body.dark-mode .out {
+      background: #2d2d2d;
+      color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Flying Hours Difference (JLB − LM)</h1>
+    
+    <fieldset>
+      <legend>Last JLB</legend>
+      <div class="row">
+        <div>
+          <label for="jlbH">Hours</label>
+          <input id="jlbH" type="number" min="0" step="1" placeholder="e.g., 3456">
+        </div>
+        <div>
+          <label for="jlbM">Minutes (0–59)</label>
+          <input id="jlbM" type="number" min="0" max="59" step="1" placeholder="e.g., 45">
+        </div>
+      </div>
+    </fieldset>
+    
+    <fieldset>
+      <legend>LM</legend>
+      <div class="row">
+        <div>
+          <label for="lmH">Hours</label>
+          <input id="lmH" type="number" min="0" step="1" placeholder="e.g., 3345">
+        </div>
+        <div>
+          <label for="lmM">Minutes (0–59)</label>
+          <input id="lmM" type="number" min="0" max="59" step="1" placeholder="e.g., 30">
+        </div>
+      </div>
+    </fieldset>
+    
+    <div class="actions">
+      <button id="calcBtn">Calculate</button>
+      <button id="swapBtn" type="button">Swap JLB ↔︎ LM</button>
+      <button id="resetBtn" type="button">Reset</button>
+      <button id="themeToggle" type="button">🌙 Dark Mode</button>
+    </div>
+    
+    <div id="output" class="out" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    (function(){
+      const jlbH = document.getElementById('jlbH');
+      const jlbM = document.getElementById('jlbM');
+      const lmH = document.getElementById('lmH');
+      const lmM = document.getElementById('lmM');
+      const out = document.getElementById('output');
+      const themeToggle = document.getElementById('themeToggle');
+
+      function pad2(n){ return String(n).padStart(2,'0'); }
+
+      function getValues() {
+        const JH = parseInt(jlbH.value, 10);
+        const JM = parseInt(jlbM.value, 10);
+        const LH = parseInt(lmH.value, 10);
+        const LM = parseInt(lmM.value, 10);
+
+        if ([JH,JM,LH,LM].some(v => Number.isNaN(v))) {
+          return { error: 'Please enter all four values (hours and minutes for JLB and LM).' };
+        }
+        if ([JM,LM].some(v => v < 0 || v > 59)) {
+          return { error: 'Minutes must be between 0 and 59.' };
+        }
+        if ([JH,LH].some(v => v < 0)) {
+          return { error: 'Hours must be 0 or greater.' };
+        }
+        return { JH, JM, LH, LM };
+      }
+
+      function calculate() {
+        const vals = getValues();
+        if (vals.error) {
+          out.innerHTML = '<span class="error">' + vals.error + '</span>';
+          return;
+        }
+        const { JH, JM, LH, LM } = vals;
+        const jlbTotalMin = JH * 60 + JM;
+        const lmTotalMin = LH * 60 + LM;
+        const diffMinSigned = jlbTotalMin - lmTotalMin;
+
+        const sign = diffMinSigned < 0 ? '-' : '';
+        const absMin = Math.abs(diffMinSigned);
+        const h = Math.floor(absMin / 60);
+        const m = absMin % 60;
+        const dec = (absMin / 60).toFixed(2);
+
+        let msg = `Difference (JLB − LM): ${sign}${h}:${pad2(m)} (${sign}${dec} hours, ${absMin} minutes total)`;
+        if (diffMinSigned < 0) {
+          msg += ' — note: JLB is less than LM.';
+        }
+        out.textContent = msg;
+      }
+
+      function swap() {
+        const aH = jlbH.value, aM = jlbM.value;
+        jlbH.value = lmH.value; jlbM.value = lmM.value;
+        lmH.value = aH; lmM.value = aM;
+      }
+
+      function resetForm() {
+        jlbH.value = ''; jlbM.value = '';
+        lmH.value = ''; lmM.value = '';
+        out.textContent = '';
+      }
+
+      // Manual Theme Toggle
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+          themeToggle.textContent = "☀️ Light Mode";
+        } else {
+          themeToggle.textContent = "🌙 Dark Mode";
+        }
+      });
+
+      document.getElementById('calcBtn').addEventListener('click', calculate);
+      document.getElementById('swapBtn').addEventListener('click', swap);
+      document.getElementById('resetBtn').addEventListener('click', resetForm);
+
+      [jlbH, jlbM, lmH, lmM].forEach(el => {
+        el.addEventListener('keydown', (e) => { if (e.key === 'Enter') calculate(); });
+      });
+    })();
+  </script>
+</body>
+</html>
